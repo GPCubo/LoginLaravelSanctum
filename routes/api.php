@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/login',[AuthController::class,'login']);
-Route::post('/out',[AuthController::class,'out'])->middleware(['auth:sanctum']);
-Route::post('/auth',[AuthController::class,'auth'])->middleware(['auth:sanctum']);
-Route::post('/user',[AuthController::class,'userInfo'])->middleware(['auth:sanctum']);
+Route::middleware(['auth:sanctum'])->group(function(){
+    Route::post('/out',[AuthController::class,'out']);
+    Route::post('/auth',[AuthController::class,'auth']);
+    Route::post('/user',[AuthController::class,'userInfo']);
+    Route::post('/searchUsers',[ChatController::class,'searchUsers']);
+    Route::post('/createChat/{chatWith}',[ChatController::class,'createChat']);
+});
