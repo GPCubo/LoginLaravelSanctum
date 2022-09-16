@@ -15,9 +15,13 @@ class CreateChatUserTable extends Migration
     {
         Schema::create('chat_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('chat_id');
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('chat_id')->unsigned();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')
+            ->onDelete('no action')->onUpdate('no action');
+            $table->foreign('chat_id')->references('id')->on('chats')
+            ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

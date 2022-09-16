@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
-use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,5 +26,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('/auth',[AuthController::class,'auth']);
     Route::post('/user',[AuthController::class,'userInfo']);
     Route::post('/searchUsers',[ChatController::class,'searchUsers']);
-    Route::post('/createChat/{chatWith}',[ChatController::class,'createChat']);
+    Route::post('/createChat',[ChatController::class,'createChat']);
+    Route::post('/showChat/{chatId}',[ChatController::class,'showChat']);
+    // Route::post('/updateChat/{chatId}',[ChatController::class,'updateChat']);
 });
